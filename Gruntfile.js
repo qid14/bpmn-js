@@ -88,6 +88,9 @@ module.exports = function(grunt) {
           insertGlobalVars: [],
           debug: true
         },
+        preBundleCB: function(b) {
+          b.plugin('minifyify', { output: 'dist/bpmn.min.map.json' });
+        },
         alias: [
           'node_modules/jquery:jquery',
           'node_modules/lodash:lodash',
