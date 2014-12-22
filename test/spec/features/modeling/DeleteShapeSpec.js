@@ -2,12 +2,11 @@
 
 /* global bootstrapModeler, inject */
 
-var Matchers = require('../../../Matchers'),
-    TestHelper = require('../../../TestHelper');
+var TestHelper = require('../../../TestHelper');
+
+var Fixtures = require('../../../fixtures');
 
 var _ = require('lodash');
-
-var fs = require('fs');
 
 var modelingModule = require('../../../../lib/features/modeling'),
     coreModule = require('../../../../lib/core');
@@ -15,10 +14,7 @@ var modelingModule = require('../../../../lib/features/modeling'),
 
 describe('features/modeling - #removeShape', function() {
 
-  beforeEach(Matchers.addDeepEquals);
-
-
-  var diagramXML = fs.readFileSync('test/fixtures/bpmn/sequence-flows.bpmn', 'utf8');
+  var diagramXML = Fixtures.getDiagram('sequence-flows.bpmn');
 
   var testModules = [ coreModule, modelingModule ];
 

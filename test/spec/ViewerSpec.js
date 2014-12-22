@@ -1,20 +1,12 @@
 'use strict';
 
-var Matchers = require('../Matchers'),
-    TestHelper = require('../TestHelper');
-
-/* global bootstrapViewer, inject */
-
-
-var fs = require('fs');
+var TestHelper = require('../TestHelper'),
+    Fixtures = require('../fixtures');
 
 var Viewer = require('../../lib/Viewer');
 
 
 describe('Viewer', function() {
-
-  beforeEach(Matchers.addDeepEquals);
-
 
   var container;
 
@@ -33,17 +25,13 @@ describe('Viewer', function() {
 
 
   it('should import simple process', function(done) {
-
-    var xml = fs.readFileSync('test/fixtures/bpmn/simple.bpmn', 'utf8');
-
+    var xml = Fixtures.getDiagram('simple.bpmn');
     createViewer(xml, done);
   });
 
 
   it('should import empty definitions', function(done) {
-
-    var xml = fs.readFileSync('test/fixtures/bpmn/empty-definitions.bpmn', 'utf8');
-
+    var xml = Fixtures.getDiagram('empty-definitions.bpmn');
     createViewer(xml, done);
   });
 
@@ -55,7 +43,7 @@ describe('Viewer', function() {
       // given
       var viewer = new Viewer({ container: container });
 
-      var xml = fs.readFileSync('test/fixtures/bpmn/empty-definitions.bpmn', 'utf8');
+      var xml = Fixtures.getDiagram('empty-definitions.bpmn');
 
       var events = [];
 
@@ -91,7 +79,7 @@ describe('Viewer', function() {
 
     it('should allow to add overlays', function(done) {
 
-      var xml = fs.readFileSync('test/fixtures/bpmn/simple.bpmn', 'utf8');
+      var xml = Fixtures.getDiagram('simple.bpmn');
 
       createViewer(xml, function(err, warnings, viewer) {
 
@@ -143,7 +131,7 @@ describe('Viewer', function() {
 
     it('should handle invalid BPMNPlane#bpmnElement', function(done) {
 
-      var xml = fs.readFileSync('test/fixtures/bpmn/error/di-plane-no-bpmn-element.bpmn', 'utf8');
+      var xml = Fixtures.getDiagram('error/di-plane-no-bpmn-element.bpmn');
 
       createViewer(xml, function(err, warnings) {
 
@@ -160,7 +148,7 @@ describe('Viewer', function() {
 
     it('should handle missing namespace', function(done) {
 
-      var xml = fs.readFileSync('test/fixtures/bpmn/error/missing-namespace.bpmn', 'utf8');
+      var xml = Fixtures.getDiagram('error/missing-namespace.bpmn');
 
       createViewer(xml, function(err) {
         expect(err).toBeDefined();
@@ -181,7 +169,7 @@ describe('Viewer', function() {
 
     it('should be available via di as <bpmnjs>', function(done) {
 
-      var xml = fs.readFileSync('test/fixtures/bpmn/simple.bpmn', 'utf8');
+      var xml = Fixtures.getDiagram('simple.bpmn');
 
       createViewer(xml, function(err, warnings, viewer) {
 
@@ -222,7 +210,7 @@ describe('Viewer', function() {
     it('should export svg', function(done) {
 
       // given
-      var xml = fs.readFileSync('test/fixtures/bpmn/empty-definitions.bpmn', 'utf8');
+      var xml = Fixtures.getDiagram('empty-definitions.bpmn');
 
       createViewer(xml, function(err, warnings, viewer) {
 
@@ -249,7 +237,7 @@ describe('Viewer', function() {
     it('should export complex svg', function(done) {
 
       // given
-      var xml = fs.readFileSync('test/fixtures/bpmn/complex.bpmn', 'utf8');
+      var xml = Fixtures.getDiagram('complex.bpmn');
 
       createViewer(xml, function(err, warnings, viewer) {
 
@@ -277,10 +265,12 @@ describe('Viewer', function() {
       });
     });
 
+
     it('should remove outer-makers on export', function(done) {
 
       // given
-      var xml = fs.readFileSync('test/fixtures/bpmn/complex.bpmn', 'utf8');
+      var xml = Fixtures.getDiagram('complex.bpmn');
+      
       function appendTestRect(svgDoc) {
         var rect = document.createElementNS(svgDoc.namespaceURI, 'rect');
         rect.setAttribute('class', 'outer-bound-marker');
@@ -335,7 +325,7 @@ describe('Viewer', function() {
     ];
 
     // given
-    var xml = fs.readFileSync('test/fixtures/bpmn/empty-definitions.bpmn', 'utf8');
+    var xml = Fixtures.getDiagram('empty-definitions.bpmn');
 
     var viewer;
 

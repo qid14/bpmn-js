@@ -1,12 +1,11 @@
 'use strict';
 
-var Matchers = require('../../../Matchers'),
-    TestHelper = require('../../../TestHelper');
-
 /* global bootstrapModeler, inject */
 
+var TestHelper = require('../../../TestHelper'),
+    Matchers = require('../../../Matchers'),
+    Fixtures = require('../../../fixtures');
 
-var fs = require('fs');
 
 var modelingModule = require('../../../../lib/features/modeling'),
     coreModule = require('../../../../lib/core');
@@ -15,9 +14,9 @@ var modelingModule = require('../../../../lib/features/modeling'),
 describe('features - bpmn-factory', function() {
 
   beforeEach(Matchers.addDeepEquals);
-
-
-  var diagramXML = fs.readFileSync('test/fixtures/bpmn/simple.bpmn', 'utf8');
+  
+  
+  var diagramXML = Fixtures.getDiagram('simple.bpmn');
 
   var testModules = [ modelingModule, coreModule ];
 

@@ -1,3 +1,5 @@
+var browserifyTask = require('./support/tasks/browserify');
+
 module.exports = function(grunt) {
 
   require('load-grunt-tasks')(grunt);
@@ -9,6 +11,18 @@ module.exports = function(grunt) {
   // any of [ 'PhantomJS', 'Chrome', 'Firefox', 'IE']
   var TEST_BROWSERS = ((process.env.TEST_BROWSERS || '').replace(/^\s+|\s+$/, '') || 'PhantomJS').split(/\s*,\s*/g);
 
+  function exposeGlobals() {
+    return [ 'exposify', {
+      global: true,
+      expose: {
+        sax: 'sax',
+        snapsvg: 'Snap',
+        lodash: '_',
+        jquery: '$',
+        'jquery-mousewheel': '$'
+      }
+    }];
+  }
 
   function extractSourceMap(file) {
     var content = grunt.file.read(file, { encoding: 'utf-8' });
@@ -81,42 +95,34 @@ module.exports = function(grunt) {
     },
 
     browserify: {
-      options: {
-        browserifyOptions: {
-          builtins: false
-        },
-        bundleOptions: {
-          detectGlobals: false,
-          insertGlobalVars: [],
-          debug: true
+      bowerViewer: {
+        files: [ './<%= config.sources %>/Viewer.js' ],
+        output: '<%= config.bowerDist %>/bpmn-viewer.js',
+        transform: [ exposeGlobals() ],
+        options: {
+          standalone: 'BpmnJS'
         }
       },
-      bowerViewer: {
-        files: {
-          '<%= config.bowerDist %>/bpmn-viewer.js': [ '<%= config.sources %>/Viewer.js' ]
-        },
+      testFixtures: {
+        output: 'tmp/prebundled/fixtures.js',
+        require: [
+          [ './<%= config.tests %>/fixtures', { expose: true } ]
+        ],
+        transform: [ 'brfs' ]
+      },
+      testDependencies: {
+        output: 'tmp/prebundled/dependencies.js',
+        require: [
+          'lodash',
+          'jquery',
+          'sax',
+          'hammerjs',
+          'eve',
+          'snapsvg',
+          'jquery-mousewheel'
+        ],
         options: {
-          browserifyOptions: {
-            builtins: false
-          },
-          bundleOptions: {
-            standalone: 'BpmnJS',
-            detectGlobals: false,
-            insertGlobalVars: [],
-            debug: false
-          },
-          transform: [
-            [ 'exposify', {
-              global: true,
-              expose: {
-                sax: 'sax',
-                snapsvg: 'Snap',
-                lodash: '_',
-                jquery: '$',
-                'jquery-mousewheel': '$'
-              }
-            } ]
-          ]
+          debug: true
         }
       }
     },
@@ -153,7 +159,13 @@ module.exports = function(grunt) {
 
   // tasks
 
-  grunt.registerTask('test', [ 'karma:single' ]);
+  grunt.registerTask('browserify', browserifyTask(grunt));
+
+  grunt.registerTask('prebundle', [ 'browserify:testFixtures', 'browserify:testDependencies' ])
+
+  grunt.registerTask('test', [ 'prebundle', 'karma:single' ]);
+
+  grunt.registerTask('auto-test', [ 'prebundle', 'karma:unit' ]);
 
   /////
   //
@@ -175,8 +187,6 @@ module.exports = function(grunt) {
       return grunt.task.run([ 'build:bower' ]);
     }
   });
-
-  grunt.registerTask('auto-test', [ 'karma:unit' ]);
 
   grunt.registerTask('default', [ 'jshint', 'test', 'build', 'jsdoc' ]);
 };

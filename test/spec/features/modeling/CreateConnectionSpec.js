@@ -7,7 +7,7 @@ var Matchers = require('../../../Matchers'),
 
 var _ = require('lodash');
 
-var fs = require('fs');
+var Fixtures = require('../../../fixtures');
 
 var modelingModule = require('../../../../lib/features/modeling'),
     coreModule = require('../../../../lib/core');
@@ -18,7 +18,7 @@ describe('features/modeling - create connection', function() {
   beforeEach(Matchers.addDeepEquals);
 
 
-  var diagramXML = fs.readFileSync('test/fixtures/bpmn/sequence-flows.bpmn', 'utf8');
+  var diagramXML = Fixtures.getDiagram('sequence-flows.bpmn');
 
   var testModules = [ coreModule, modelingModule ];
 

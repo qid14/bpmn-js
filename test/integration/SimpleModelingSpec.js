@@ -1,10 +1,7 @@
 'use strict';
 
-var Matchers = require('../Matchers'),
-    TestHelper = require('../TestHelper');
+var TestHelper = require('../TestHelper');
 
-
-var fs = require('fs');
 
 var Modeler = require('../../lib/Modeler');
 

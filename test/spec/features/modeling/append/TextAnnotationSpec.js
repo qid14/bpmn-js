@@ -1,13 +1,13 @@
 'use strict';
 
+/* global bootstrapModeler, inject */
+
 var Matchers = require('../../../../Matchers'),
     TestHelper = require('../../../../TestHelper');
 
-/* global bootstrapModeler, inject */
+var Fixtures = require('../../../../fixtures');
 
 var _ = require('lodash');
-
-var fs = require('fs');
 
 var modelingModule = require('../../../../../lib/features/modeling'),
     coreModule = require('../../../../../lib/core');
@@ -21,7 +21,7 @@ describe('features/modeling - append text-annotation', function() {
   beforeEach(Matchers.addDeepEquals);
 
 
-  var diagramXML = fs.readFileSync('test/fixtures/bpmn/containers.bpmn', 'utf8');
+  var diagramXML = Fixtures.getDiagram('containers.bpmn');
 
   var testModules = [ coreModule, modelingModule ];
 

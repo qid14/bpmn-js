@@ -1,13 +1,13 @@
 'use strict';
 
+/* global bootstrapModeler, inject */
+
 var Matchers = require('../../../Matchers'),
     TestHelper = require('../../../TestHelper');
 
-/* global bootstrapModeler, inject */
+var Fixtures = require('../../../fixtures');
 
 var _ = require('lodash');
-
-var fs = require('fs');
 
 var modelingModule = require('../../../../lib/features/modeling'),
     coreModule = require('../../../../lib/core');
@@ -18,7 +18,7 @@ describe('features/modeling - move shape', function() {
   beforeEach(Matchers.addDeepEquals);
 
 
-  var diagramXML = fs.readFileSync('test/fixtures/bpmn/simple.bpmn', 'utf8');
+  var diagramXML = Fixtures.getDiagram('simple.bpmn');
 
   var testModules = [ coreModule, modelingModule ];
 

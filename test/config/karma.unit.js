@@ -6,6 +6,8 @@ module.exports = function(karma) {
     frameworks: [ 'browserify', 'jasmine' ],
 
     files: [
+      'tmp/prebundled/dependencies.js',
+      'tmp/prebundled/fixtures.js',
       'test/spec/**/*Spec.js',
       'test/integration/**/*Spec.js'
     ],
@@ -27,7 +29,18 @@ module.exports = function(karma) {
     // browserify configuration
     browserify: {
       debug: true,
-      transform: [ 'brfs' ]
+      detectGlobals: false,
+      transform: [ 'brfs' ],
+      configure: function(b) {
+
+        b.external('lodash');
+        b.external('sax');
+        b.external('snapsvg');
+        b.external('jquery');
+        b.external('jquery-mousewheel');
+
+        b.external('./test/fixtures');
+      }
     }
   });
 };

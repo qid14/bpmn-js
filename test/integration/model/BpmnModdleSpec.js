@@ -1,5 +1,7 @@
 'use strict';
 
+var Fixtures = require('../../fixtures');
+
 var BpmnModdle = require('bpmn-moddle');
 
 
@@ -46,7 +48,7 @@ describe('bpmn-moddle', function() {
 
       var fs = require('fs');
 
-      var xml = fs.readFileSync('test/fixtures/bpmn/complex.bpmn', 'utf8');
+      var xml = Fixtures.getDiagram('complex.bpmn');
 
       var start = new Date().getTime();
 

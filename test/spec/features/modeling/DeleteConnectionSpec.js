@@ -1,13 +1,12 @@
 'use strict';
 
-/* global bootstrapModeler, inject */
+var TestHelper = require('../../../TestHelper');
 
-var Matchers = require('../../../Matchers'),
-    TestHelper = require('../../../TestHelper');
+/* global bootstrapModeler, inject */
 
 var _ = require('lodash');
 
-var fs = require('fs');
+var Fixtures = require('../../../fixtures');
 
 var modelingModule = require('../../../../lib/features/modeling'),
     coreModule = require('../../../../lib/core');
@@ -15,10 +14,7 @@ var modelingModule = require('../../../../lib/features/modeling'),
 
 describe('features/modeling - #removeConnection', function() {
 
-  beforeEach(Matchers.addDeepEquals);
-
-
-  var diagramXML = fs.readFileSync('test/fixtures/bpmn/sequence-flows.bpmn', 'utf8');
+  var diagramXML = Fixtures.getDiagram('sequence-flows.bpmn');
 
   var testModules = [ coreModule, modelingModule ];
 

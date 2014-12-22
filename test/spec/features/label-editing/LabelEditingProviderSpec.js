@@ -1,12 +1,10 @@
 'use strict';
 
-var Matchers = require('../../../Matchers'),
-    TestHelper = require('../../../TestHelper');
-
 /* global bootstrapViewer, inject */
 
+var TestHelper = require('../../../TestHelper'),
+    Fixtures = require('../../../fixtures');
 
-var fs = require('fs');
 
 var $ = require('jquery');
 
@@ -19,15 +17,11 @@ var LabelUtil = require('../../../../lib/features/label-editing/LabelUtil');
 
 describe('features - label-editing', function() {
 
-  beforeEach(Matchers.addDeepEquals);
-
-
-  var diagramXML = fs.readFileSync('test/fixtures/bpmn/features/label-editing/labels.bpmn', 'utf8');
+  var diagramXML = Fixtures.getDiagram('features/label-editing/labels.bpmn');
 
   var testModules = [ labelEditingModule, coreModule ];
 
   beforeEach(bootstrapViewer(diagramXML, { modules: testModules }));
-
 
   describe('basics', function() {
 

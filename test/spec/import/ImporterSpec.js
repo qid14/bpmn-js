@@ -1,9 +1,7 @@
 'use strict';
 
-var TestHelper = require('../../TestHelper');
-
-
-var fs = require('fs');
+var TestHelper = require('../../TestHelper'),
+    Fixtures = require('../../fixtures');
 
 var Diagram = require('diagram-js/lib/Diagram'),
     BpmnModdle = require('bpmn-moddle'),
@@ -57,7 +55,7 @@ describe('import - importer', function() {
     it('should fire <shape.added> during import', function(done) {
 
       // given
-      var xml = fs.readFileSync('test/fixtures/bpmn/simple.bpmn', 'utf8');
+      var xml = Fixtures.getDiagram('simple.bpmn');
 
       var eventCount = 0;
 
@@ -84,7 +82,7 @@ describe('import - importer', function() {
     it('should import simple process', function(done) {
 
       // given
-      var xml = fs.readFileSync('test/fixtures/bpmn/simple.bpmn', 'utf8');
+      var xml = Fixtures.getDiagram('simple.bpmn');
 
       var events = [];
 
@@ -122,7 +120,7 @@ describe('import - importer', function() {
     it('should import collaboration', function(done) {
 
       // given
-      var xml = fs.readFileSync('test/fixtures/bpmn/collaboration.bpmn', 'utf8');
+      var xml = Fixtures.getDiagram('collaboration.bpmn');
 
       var events = [];
 
@@ -159,7 +157,7 @@ describe('import - importer', function() {
 
   describe('model wiring', function() {
 
-    var xml = fs.readFileSync('test/fixtures/bpmn/simple.bpmn', 'utf8');
+    var xml = Fixtures.getDiagram('simple.bpmn');
 
     var elements;
 
@@ -267,7 +265,7 @@ describe('import - importer', function() {
     it('should import invalid flowElement', function(done) {
 
       // given
-      var xml = fs.readFileSync('test/fixtures/bpmn/error/invalid-flow-element.bpmn', 'utf8');
+      var xml = Fixtures.getDiagram('error/invalid-flow-element.bpmn');
 
       // when
       runImport(diagram, xml, function(err, warnings) {
@@ -282,7 +280,7 @@ describe('import - importer', function() {
     it('should import multiple dis', function(done) {
 
       // given
-      var xml = fs.readFileSync('test/fixtures/bpmn/error/multiple-dis.bpmn', 'utf8');
+      var xml = Fixtures.getDiagram('error/multiple-dis.bpmn');
 
       // when
       runImport(diagram, xml, function(err, warnings) {
@@ -298,7 +296,7 @@ describe('import - importer', function() {
     it('should extend missing attribute with default value', function(done) {
 
       // given
-      var xml = fs.readFileSync('test/fixtures//bpmn/draw/gateway-type-default.bpmn', 'utf8');
+      var xml = Fixtures.getDiagram('draw/gateway-type-default.bpmn');
 
       // when
       runImport(diagram, xml, function(err, warnings) {
@@ -321,7 +319,7 @@ describe('import - importer', function() {
     it('should import complex', function(done) {
 
       // given
-      var xml = fs.readFileSync('test/fixtures/bpmn/complex.bpmn', 'utf8');
+      var xml = Fixtures.getDiagram('complex.bpmn');
 
       // when
       runImport(diagram, xml, function(err, warnings) {

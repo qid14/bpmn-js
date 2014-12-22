@@ -1,10 +1,11 @@
 'use strict';
 
-var TestHelper = require('../../TestHelper');
+require('../../TestHelper');
 
 /* global bootstrapViewer, inject */
 
-var fs = require('fs');
+var Fixtures = require('../../fixtures');
+
 
 var Events = require('diagram-js/lib/core/EventBus');
 
@@ -13,7 +14,7 @@ var Viewer = require('../../../lib/Viewer');
 
 describe('environment - mocking', function() {
 
-  var diagramXML = fs.readFileSync('test/fixtures/bpmn/simple.bpmn', 'utf8');
+  var diagramXML = Fixtures.getDiagram('simple.bpmn');
 
   var mockEvents, bootstrapCalled;
 

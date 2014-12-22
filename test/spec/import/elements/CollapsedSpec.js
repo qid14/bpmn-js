@@ -1,12 +1,10 @@
 'use strict';
 
-var Matchers = require('../../../Matchers'),
-    TestHelper = require('../../../TestHelper');
-
 /* global bootstrapViewer, inject */
 
-
-var fs = require('fs');
+var Matchers = require('../../../Matchers'),
+    TestHelper = require('../../../TestHelper'),
+    Fixtures = require('../../../fixtures');
 
 
 describe('import - collapsed container', function() {
@@ -16,7 +14,7 @@ describe('import - collapsed container', function() {
 
   describe('in process', function() {
 
-    var diagramXML = fs.readFileSync('test/fixtures/bpmn/import/collapsed.bpmn', 'utf8');
+    var diagramXML = Fixtures.getDiagram('import/collapsed.bpmn');
 
     beforeEach(bootstrapViewer(diagramXML));
 
@@ -81,7 +79,7 @@ describe('import - collapsed container', function() {
 
   describe('in collaboration', function() {
 
-    var diagramXML = fs.readFileSync('test/fixtures/bpmn/import/collapsed-collaboration.bpmn', 'utf8');
+    var diagramXML = Fixtures.getDiagram('import/collapsed-collaboration.bpmn');
 
     beforeEach(bootstrapViewer(diagramXML));
 

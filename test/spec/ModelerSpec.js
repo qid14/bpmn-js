@@ -1,18 +1,12 @@
 'use strict';
 
-var Matchers = require('../Matchers'),
-    TestHelper = require('../TestHelper');
-
-
-var fs = require('fs');
+var TestHelper = require('../TestHelper'),
+    Fixtures = require('../fixtures');
 
 var Modeler = require('../../lib/Modeler');
 
 
 describe('Modeler', function() {
-
-  beforeEach(Matchers.addDeepEquals);
-
 
   var container;
 
@@ -31,13 +25,13 @@ describe('Modeler', function() {
 
 
   it('should import simple process', function(done) {
-    var xml = fs.readFileSync('test/fixtures/bpmn/simple.bpmn', 'utf8');
+    var xml = Fixtures.getDiagram('simple.bpmn');
     createModeler(xml, done);
   });
 
 
   it('should import empty definitions', function(done) {
-    var xml = fs.readFileSync('test/fixtures/bpmn/empty-definitions.bpmn', 'utf8');
+    var xml = Fixtures.getDiagram('empty-definitions.bpmn');
     createModeler(xml, done);
   });
 
@@ -46,7 +40,7 @@ describe('Modeler', function() {
 
     it('should allow to add overlays', function(done) {
 
-      var xml = fs.readFileSync('test/fixtures/bpmn/simple.bpmn', 'utf8');
+      var xml = Fixtures.getDiagram('simple.bpmn');
 
       createModeler(xml, function(err, viewer) {
 
@@ -92,7 +86,7 @@ describe('Modeler', function() {
 
     it('should ship with cli', function(done) {
 
-      var xml = fs.readFileSync('test/fixtures/bpmn/simple.bpmn', 'utf8');
+      var xml = Fixtures.getDiagram('simple.bpmn');
 
       createModeler(xml, function(err, viewer) {
 
@@ -141,7 +135,7 @@ describe('Modeler', function() {
 
     it('should be available via di as <bpmnjs>', function(done) {
 
-      var xml = fs.readFileSync('test/fixtures/bpmn/simple.bpmn', 'utf8');
+      var xml = Fixtures.getDiagram('simple.bpmn');
 
       createModeler(xml, function(err, modeler) {
 
