@@ -75,11 +75,9 @@ module.exports = function(grunt) {
     var done = this.async();
 
     var browserifyOptions = {
-      builtins: false,
       standalone: 'BpmnJS',
-      detectGlobals: false,
-      insertGlobalVars: [],
-      debug: true
+      debug: true,
+      detectGlobals: true
     };
 
     var exposifyOptions = {
