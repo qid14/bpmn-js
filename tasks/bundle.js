@@ -1,3 +1,5 @@
+'use strict';
+
 var browserify = require('browserify'),
     derequire = require('derequire'),
     UglifyJS = require('uglify-js'),
@@ -12,12 +14,7 @@ var BANNER = fs.readFileSync(__dirname + '/banner.txt', 'utf8'),
     BANNER_MIN = fs.readFileSync(__dirname + '/banner-min.txt', 'utf8');
 
 var EXTERNALS = {
-  sax: 'sax',
-  snapsvg: 'Snap',
-  lodash: '_',
-  hammerjs: 'Hammer',
-  jquery: '$',
-  'jquery-mousewheel': '$'
+  jquery: '$'
 };
 
 
